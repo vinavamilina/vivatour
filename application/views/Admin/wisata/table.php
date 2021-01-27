@@ -8,7 +8,7 @@
         </div>
         <div class="row col-md-2">
             <div class="card">
-                <a href="<?= base_url('admin/adddatatransaksi') ?>">
+                <a href="<?= base_url('admin/adddatawisata') ?>">
                     <i class="fa fa-plus"></i> &nbsp;Tambah Paket
                 </a>
             </div>
@@ -46,13 +46,13 @@
                                     <td><?= $Tabelpaketwisata->Kegiatan_wisata ?></td>
                                     <td><?= $Tabelpaketwisata->lama_tour ?></td>
                                     <td>
-                                        <a href="<?= base_url('admin/detaildatatransaksi/' . $Tabelpaketwisata->Id_paket_wisata) ?>">
+                                        <a href="<?= base_url('admin/detaildatawisata/' . $Tabelpaketwisata->Id_paket_wisata) ?>">
                                             <button type="button" class="btn btn-block btn-success btn-xs">
                                                 Detail
                                             </button>
                                         </a>
 
-                                        <a href="<?= base_url('admin/editdatatransaksi/' . $Tabelpaketwisata->Id_paket_wisata) ?>">
+                                        <a href="<?= base_url('admin/editdatawisata/' . $Tabelpaketwisata->Id_paket_wisata) ?>">
                                             <button type="button" class="btn btn-block btn-primary btn-xs">
                                                 Ubah
                                             </button>

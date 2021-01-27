@@ -46,7 +46,7 @@
                   <div class="icon">
                     <i class="fas fa-box"></i>
                   </div>
-                  <a href="datapaketpariwisata.html" class="small-box-footer">Lihat detail<i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="<?= base_url('admin/tabledatawisata'); ?>" class="small-box-footer">Lihat detail<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
 
@@ -62,10 +62,9 @@
           <!-- /.card -->
         </section>
         <!-- right col -->
-      </div>
-      <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-    </div>
-   
+        </div>
+        <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+        </div>

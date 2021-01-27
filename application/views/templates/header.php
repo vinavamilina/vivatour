@@ -145,7 +145,7 @@
                                     </a>
                         </li>
                         <i class="nav-item">
-                            <a href="<?= base_url('Admin/Tabelpaketwisata') ?>" class="nav-link">
+                            <a href="<?= base_url('Admin/tabledatawisata') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>Tabel Paket Wisata</p>
                             </a>

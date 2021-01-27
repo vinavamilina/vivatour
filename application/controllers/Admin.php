@@ -8,9 +8,11 @@ class Admin extends CI_Controller
 	{
 		if ($this->session->userdata('tipe') == 'Admin') {
 			$data = [
-				'content' => $this->load->view('Admin/beranda', '', true)
+				// 'content' => $this->load->view('Admin/beranda', '', true)
 			];
-			$this->load->view('Admin/main', $data);
+			$this->load->view('templates/header', $data);
+			$this->load->view('Admin/beranda');
+			$this->load->view('templates/footer');
 		} else {
 			$this->load->view('error404.php');
 		}
@@ -84,20 +86,6 @@ class Admin extends CI_Controller
 			$this->load->view('error404.php');
 		}
 	}
-	public function Tabelpaketwisata()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				'Wisata' => $this->AdminModel->getAllPaketWisata(),
-			];
-			// var_dump($data);
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/Tabelpaketwisata');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
 	public function Datapaketpariwisata()
 	{
 		if ($this->session->userdata('tipe') == 'Admin') {
@@ -143,50 +131,50 @@ class Admin extends CI_Controller
 	{
 		$delete = $this->AdminModel->deletePaketWisata($data);
 		if ($delete) {
-			redirect('admin/Tabelpaketwisata');
+			redirect('admin/tabledatawisata');
 		}
 	}
 
-	public function adddatatransaksi()
+	public function adddatawisata()
 	{
 		if ($this->session->userdata('tipe') == 'Admin') {
 			$this->load->view('templates/header');
-			$this->load->view('Admin/Tambahdatatransaksi');
+			$this->load->view('Admin/wisata/create');
 			$this->load->view('templates/footer');
 		} else {
 			$this->load->view('error404.php');
 		}
 	}
 
-	public function detaildatatransaksi($id)
+	public function detaildatawisata($id)
 	{
 		if ($this->session->userdata('tipe') == 'Admin') {
 			$data = [
 				'data' => $this->AdminModel->getPaketWisata($id),
 			];
 			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/Infodatatransaksi');
+			$this->load->view('Admin/wisata/info');
 			$this->load->view('templates/footer');
 		} else {
 			$this->load->view('error404.php');
 		}
 	}
 
-	public function editdatatransaksi($id)
+	public function editdatawisata($id)
 	{
 		if ($this->session->userdata('tipe') == 'Admin') {
 			$data = [
 				'data' => $this->AdminModel->getPaketWisata($id),
 			];
 			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/Editdatatransaksi');
+			$this->load->view('Admin/wisata/edit');
 			$this->load->view('templates/footer');
 		} else {
 			$this->load->view('error404.php');
 		}
 	}
 
-	public function createdatatransaksi()
+	public function createdatawisata()
 	{
 		if ($this->session->userdata('tipe') == 'Admin') {
 			$no = htmlspecialchars($this->input->post('no', true));
@@ -203,11 +191,11 @@ class Admin extends CI_Controller
 			];
 			$save = $this->db->insert('paket_wisata', $data);
 			if ($save) {
-				redirect('admin/Tabelpaketwisata');
+				redirect('admin/tabledatawisata');
 			}
 		}
 	}
-	public function updatedatatransaksi()
+	public function updatedatawisata()
 	{
 		if ($this->session->userdata('tipe') == 'Admin') {
 			$no = htmlspecialchars($this->input->post('no', true));
@@ -223,7 +211,22 @@ class Admin extends CI_Controller
 			];
 			$this->db->where('Id_paket_wisata', $no);
 			$this->db->update('paket_wisata', $data);
-			redirect('admin/Tabelpaketwisata');
+			redirect('admin/tabledatawisata');
+		}
+	}
+
+	public function tabledatawisata()
+	{
+		if ($this->session->userdata('tipe') == 'Admin') {
+			$data = [
+				'Wisata' => $this->AdminModel->getAllPaketWisata(),
+			];
+			// var_dump($data);
+			$this->load->view('templates/header', $data);
+			$this->load->view('Admin/wisata/table');
+			$this->load->view('templates/footer');
+		} else {
+			$this->load->view('error404.php');
 		}
 	}
 }
