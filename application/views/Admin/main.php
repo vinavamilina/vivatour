@@ -225,7 +225,7 @@
                 <div class="icon">
                   <i class="fas fa-map-marker-alt"></i>
                 </div>
-                <a href="datatempatwisata.html" class="small-box-footer">Lihat detail<i class="fas fa-arrow-circle-right"></i></a>
+                <a href="<?php base_url('admin/datatempatwisata') ?>" class="small-box-footer">Lihat detail<i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -240,7 +240,7 @@
                 <div class="icon">
                   <i class="fas fa-box"></i>
                 </div>
-                <a href="datapaketpariwisata.html" class="small-box-footer">Lihat detail<i class="fas fa-arrow-circle-right"></i></a>
+                <a href="<?php base_url('admin/datapaketpariwisata') ?>" class="small-box-footer">Lihat detail<i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 

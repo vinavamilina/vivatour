@@ -33,10 +33,12 @@
                             foreach ($Wisata as $Tabelpaketwisata) :
                             ?>
                                 <tr>
-                                    <td><?= $i ?></td>
+                                    <td><?= $i++ ?></td>
                                     <td><?= $Tabelpaketwisata->Id_paket_wisata ?></td>
                                     <td><?= $Tabelpaketwisata->Nama_paket ?></td>
-                                    <td><?= $Tabelpaketwisata->Nama_paket ?></td>
+                                    <td><?= $Tabelpaketwisata->Nama_tempat_wisata ?></td>
+                                    <td><?= $Tabelpaketwisata->Kegiatan_wisata ?></td>
+                                    <td><?= $Tabelpaketwisata->lama_tour ?></td>
                                     <td>
                                         <a href="Tabelpaketwisata.html">
                                             <button type="button" class="btn btn-block btn-success btn-xs">
@@ -50,7 +52,7 @@
                                             </button>
                                         </a>
 
-                                        <a href="<?= base_url('admin/hapusPaket/' . $Tabelpaketwisata->$idPaketwisata) ?>">
+                                        <a href="<?= base_url('admin/hapusPaket/' . $Tabelpaketwisata->Id_paket_wisata) ?>">
                                             <button type="button" class="btn btn-block btn-danger btn-xs">
                                                 Hapus
                                             </button>
@@ -58,50 +60,16 @@
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
-
-                            <?php
-                            $x = 1;
-                            foreach ($mainstock as $ambilstok) {
-                            ?>
-
-                                <tr>
-                                    <td><?= $ambilstok->id_product ?></td>
-                                    <td><?= $ambilstok->nama ?></td>
-                                    <td><?= $ambilstok->harga ?></td>
-                                    <td>
-                                        <a href="detailvicky.html">
-                                            <button type="button" class="btn btn-block btn-success btn-xs">
-                                                Detail
-                                            </button>
-                                        </a>
-                                        <a href="#">
-                                            <button type="button" class="btn btn-block btn-primary btn-xs">
-                                                Ubah
-                                            </button>
-
-
-                                        </a>
-                                        <a href="<?= base_url('Admin/delete/' . '$idProuct->id_product') ?>">
-                                            <button type="button" class="btn btn-block btn-danger btn-xs">
-                                                Hapus
-                                            </button>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                            <?php
-                                $x++;
-                            }
-                            ?>
-
-
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>No.</th>
-                                <th>Nama Product</th>
-                                <th>Harga</th>
-                                <th>Keterangan</th>
+                                <th width="2%">No.</th>
+                                <th width="2%">Id Paket</th>
+                                <th>Nama Paket</th>
+                                <th>Nama Tempat Wisata</th>
+                                <th>Kegiatan Wisata</th>
+                                <th>Lama Tour/harga/org</th>
+                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                     </table>

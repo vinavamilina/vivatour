@@ -31,13 +31,13 @@ class Login extends CI_Controller
 
                     $this->session->set_userdata($data_sesi);
 
-                    if ($this->session->userdata('level_pengguna') == 'admin') {
-                        redirect('admin');
-                    } else {
-                        echo "Nama pengguna: " . $this->session->userdata('nama') . "<br>";
-                        echo "ID pengguna: " . $this->session->userdata('id_pengguna') . "<br>";
-                        echo "level pengguna: " . $this->session->userdata('level_pengguna') . "<br>";
-                    }
+                    // if ($this->session->userdata('level_pengguna') == 'admin') {
+                    redirect('admin');
+                    // } else {
+                    //     echo "Nama pengguna: " . $this->session->userdata('nama') . "<br>";
+                    //     echo "ID pengguna: " . $this->session->userdata('id_pengguna') . "<br>";
+                    //     echo "level pengguna: " . $this->session->userdata('level_pengguna') . "<br>";
+                    // }
                 } else {
                     $data = [
                         'info' => 'userpasssalah'
@@ -50,13 +50,13 @@ class Login extends CI_Controller
                 $this->load->view('Admin/Viva_Tour');
             }
         } else {
-            if ($this->session->userdata('tipe') == 'Admin') {
-                redirect('admin');
-            } else {
-                echo "Nama pengguna: " . $this->session->userdata('nama') . "<br>";
-                echo "ID pengguna: " . $this->session->userdata('id_pengguna') . "<br>";
-                echo "level pengguna: " . $this->session->userdata('tipe') . "<br>";
-            }
+            // if ($this->session->userdata('tipe') == 'Admin') {
+            redirect('admin');
+            // } else {
+            //     echo "Nama pengguna: " . $this->session->userdata('nama') . "<br>";
+            //     echo "ID pengguna: " . $this->session->userdata('id_pengguna') . "<br>";
+            //     echo "level pengguna: " . $this->session->userdata('tipe') . "<br>";
+            // }
         }
     }
 }
