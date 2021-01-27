@@ -13,6 +13,12 @@ class AdminModel extends CI_Model
 		return $query->result();
 	}
 
+	function getPaketWisata($data)
+	{
+		$query = $this->db->query("SELECT * FROM paket_wisata WHERE Id_paket_wisata = '$data'");
+		return $query->row();
+	}
+
 	function deletePaketWisata($data)
 	{
 		if ($data) {
@@ -21,6 +27,11 @@ class AdminModel extends CI_Model
 				return $this->db->query("DELETE FROM paket_wisata WHERE Id_paket_wisata = '$data'");
 			}
 		}
+	}
+
+	public function createPaketWisata($no, $nama, $paket, $kegitan, $tour)
+	{
+		return $this->db->query("INSERT INTO `paket_wisata` (`Id_paket_wisata`, `Nama_paket`, `Nama_tempat_wisata`, `Kegiatan_wisata`, `lama_tour`) VALUES ('$no', '$nama', '$paket', '$kegitan', '$tour')");
 	}
 
 	function delete($idPaketwisata)

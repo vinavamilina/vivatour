@@ -146,4 +146,84 @@ class Admin extends CI_Controller
 			redirect('admin/Tabelpaketwisata');
 		}
 	}
+
+	public function adddatatransaksi()
+	{
+		if ($this->session->userdata('tipe') == 'Admin') {
+			$this->load->view('templates/header');
+			$this->load->view('Admin/Tambahdatatransaksi');
+			$this->load->view('templates/footer');
+		} else {
+			$this->load->view('error404.php');
+		}
+	}
+
+	public function detaildatatransaksi($id)
+	{
+		if ($this->session->userdata('tipe') == 'Admin') {
+			$data = [
+				'data' => $this->AdminModel->getPaketWisata($id),
+			];
+			$this->load->view('templates/header', $data);
+			$this->load->view('Admin/Infodatatransaksi');
+			$this->load->view('templates/footer');
+		} else {
+			$this->load->view('error404.php');
+		}
+	}
+
+	public function editdatatransaksi($id)
+	{
+		if ($this->session->userdata('tipe') == 'Admin') {
+			$data = [
+				'data' => $this->AdminModel->getPaketWisata($id),
+			];
+			$this->load->view('templates/header', $data);
+			$this->load->view('Admin/Editdatatransaksi');
+			$this->load->view('templates/footer');
+		} else {
+			$this->load->view('error404.php');
+		}
+	}
+
+	public function createdatatransaksi()
+	{
+		if ($this->session->userdata('tipe') == 'Admin') {
+			$no = htmlspecialchars($this->input->post('no', true));
+			$nama = htmlspecialchars($this->input->post('nama', true));
+			$paket = htmlspecialchars($this->input->post('paket', true));
+			$kegiatan = htmlspecialchars($this->input->post('kegiatan', true));
+			$tour = htmlspecialchars($this->input->post('tour', true));
+			$data = [
+				'Id_paket_wisata' => $no,
+				'Nama_paket' => $nama,
+				'Nama_tempat_wisata' => $paket,
+				'Kegiatan_wisata' => $kegiatan,
+				'lama_tour' => $tour,
+			];
+			$save = $this->db->insert('paket_wisata', $data);
+			if ($save) {
+				redirect('admin/Tabelpaketwisata');
+			}
+		}
+	}
+	public function updatedatatransaksi()
+	{
+		if ($this->session->userdata('tipe') == 'Admin') {
+			$no = htmlspecialchars($this->input->post('no', true));
+			$nama = htmlspecialchars($this->input->post('nama', true));
+			$paket = htmlspecialchars($this->input->post('paket', true));
+			$kegiatan = htmlspecialchars($this->input->post('kegiatan', true));
+			$tour = htmlspecialchars($this->input->post('tour', true));
+			$data = [
+				'Nama_paket' => $nama,
+				'Nama_tempat_wisata' => $paket,
+				'Kegiatan_wisata' => $kegiatan,
+				'lama_tour' => $tour,
+			];
+			$this->db->where('Id_paket_wisata', $no);
+			$this->db->update('paket_wisata', $data);
+			redirect('admin/Tabelpaketwisata');
+		}
+	}
 }

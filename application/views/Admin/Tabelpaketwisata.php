@@ -4,7 +4,13 @@
         <!-- Small boxes (Stat box) -->
         <div class="row col-md-2">
             <div class="card">
-                <i class="fa fa-plus"></i> &nbsp;Tambah Paket
+            </div>
+        </div>
+        <div class="row col-md-2">
+            <div class="card">
+                <a href="<?= base_url('admin/adddatatransaksi') ?>">
+                    <i class="fa fa-plus"></i> &nbsp;Tambah Paket
+                </a>
             </div>
         </div>
 
@@ -40,13 +46,13 @@
                                     <td><?= $Tabelpaketwisata->Kegiatan_wisata ?></td>
                                     <td><?= $Tabelpaketwisata->lama_tour ?></td>
                                     <td>
-                                        <a href="Tabelpaketwisata.html">
+                                        <a href="<?= base_url('admin/detaildatatransaksi/' . $Tabelpaketwisata->Id_paket_wisata) ?>">
                                             <button type="button" class="btn btn-block btn-success btn-xs">
                                                 Detail
                                             </button>
                                         </a>
 
-                                        <a href="#">
+                                        <a href="<?= base_url('admin/editdatatransaksi/' . $Tabelpaketwisata->Id_paket_wisata) ?>">
                                             <button type="button" class="btn btn-block btn-primary btn-xs">
                                                 Ubah
                                             </button>
