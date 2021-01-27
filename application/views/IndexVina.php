@@ -103,7 +103,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="ProfilVin.html" . class="nav-link">
+                <a href="profilVin.html" . class="nav-link">
                   <i class="nav-icon fas fa-user"></i>
                   <p>
                     Profil

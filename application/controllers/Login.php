@@ -32,7 +32,7 @@ class Login extends CI_Controller
                     $this->session->set_userdata($data_sesi);
 
                     if ($this->session->userdata('level_pengguna') == 'admin') {
-                        redirect(Admin);
+                        redirect('admin');
                     } else {
                         echo "Nama pengguna: " . $this->session->userdata('nama') . "<br>";
                         echo "ID pengguna: " . $this->session->userdata('id_pengguna') . "<br>";
@@ -43,15 +43,15 @@ class Login extends CI_Controller
                         'info' => 'userpasssalah'
                     ];
 
-                    $this->load->view('Viva_Tour', $data);
+                    $this->load->view('Admin/Viva_Tour', $data);
                 }
             } else {
                 //echo "Nama pengguna atau kata sandi belum diisi";
-                $this->load->view('Viva_Tour');
+                $this->load->view('Admin/Viva_Tour');
             }
         } else {
             if ($this->session->userdata('tipe') == 'Admin') {
-                redirect(Admin);
+                redirect('admin');
             } else {
                 echo "Nama pengguna: " . $this->session->userdata('nama') . "<br>";
                 echo "ID pengguna: " . $this->session->userdata('id_pengguna') . "<br>";
