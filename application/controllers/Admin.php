@@ -3,230 +3,370 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	public function index()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				// 'content' => $this->load->view('Admin/beranda', '', true)
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/beranda');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
+    public function index()
+    {
+        redirect('admin/dashboard');
+    }
 
-	public function beranda()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				// 'content' => $this->load->view('Admin/beranda', '', true)
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/beranda');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
+    public function login()
+    {
+        if (isset($this->session->userdata['username'])) {
+            redirect('admin/dashboard');
+        }
 
-	public function profilVin()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				// 'content' => $this->load->view('Admin/ProfilVin', '', true)
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/ProfilVin');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
-	public function Hubungivin()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				// 'content' => $this->load->view('Admin/Hubungivin', '', true)
+        $this->form_validation->set_rules('username', 'Nama Pengguna', 'trim|required');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/Hubungivin');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
-	public function datapelanggan()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				// 'content' => $this->load->view('Admin/datapelanggan', '', true)
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = "Login";
+            $this->load->view('auth/login', $data);
+        } else {
+            //check
+            $this->_login();
+        }
+    }
 
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/datapelanggan');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
-	public function datatempatwisata()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				// 'content' => $this->load->view('Admin/datatempatwisata', '', true)
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/datatempatwisata');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
-	public function Datapaketpariwisata()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				// 'content' => $this->load->view('Admin/datapaketpariwisata', '', true)
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/datapaketpariwisata');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
-	public function Transaksi()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				// 'content' => $this->load->view('Admin/Transaksi', '', true)
+    private function _login()
+    {
+        $username = $this->input->post('username', true);
+        $password = $this->input->post('password');
 
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/Transaksi');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
-	public function UbahkatasandiVin()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				// 'content' => $this->load->view('Admin/UbahkatasandiVin', '', true)
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/UbahkatasandiVin');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
+        $user = $this->db->get_where('pengguna', [
+            'username' => $username
+        ])->row();
+        /* check user account */
+        if ($user) {
+            /* check user password */
+            if (MD5($password) == $user->password) {
+                $data = [
+                    'name' => $user->nama,
+                    'username' => $user->username,
+                    'level' => $user->hak_akses_id,
+                ];
+                $this->session->set_userdata($data);
+                redirect('admin/dashboard');
+            } else {
+                /* account wrong password */
+                $this->session->set_flashdata('error', 'The password that you\'ve entered is incorrect.');
+                redirect('admin/login');
+            }
+        } else {
+            /* account not registred */
+            $this->session->set_flashdata('error', 'The email address that you\'ve entered doesn\'t match any account.');
+            redirect('admin/login');
+        }
+    }
 
-	public function hapusPaket($data)
-	{
-		$delete = $this->AdminModel->deletePaketWisata($data);
-		if ($delete) {
-			redirect('admin/tabledatawisata');
-		}
-	}
+    public function logout()
+    {
+        $this->session->unset_userdata['name'];
+        $this->session->unset_userdata['username'];
+        $this->session->unset_userdata['level'];
+        $this->session->sess_destroy();
+        $this->session->set_flashdata('success', 'You have been Logged Out !');
+        redirect('admin/login');
+    }
 
-	public function adddatawisata()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$this->load->view('templates/header');
-			$this->load->view('Admin/wisata/create');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
+    public function dashboard()
+    {
+        is_logged_in();
 
-	public function detaildatawisata($id)
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				'data' => $this->AdminModel->getPaketWisata($id),
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/wisata/info');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
+        switch ($this->session->userdata('level')) {
+            case $this->pengguna->accessAdmin()->id:
+                $data = [
+                    'title' => 'Halaman Utama',
+                    'countWisata' => $this->wisata->countData(),
+                    'countPaket' => $this->paket->countData(),
+                ];
+                $this->load->view('templates/header', $data);
+                $this->load->view('pages/dashboard/index');
+                $this->load->view('templates/footer');
+                break;
 
-	public function editdatawisata($id)
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				'data' => $this->AdminModel->getPaketWisata($id),
-			];
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/wisata/edit');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
+            default:
+                // $this->load->view('error404');
+                break;
+        }
+    }
 
-	public function createdatawisata()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$no = htmlspecialchars($this->input->post('no', true));
-			$nama = htmlspecialchars($this->input->post('nama', true));
-			$paket = htmlspecialchars($this->input->post('paket', true));
-			$kegiatan = htmlspecialchars($this->input->post('kegiatan', true));
-			$tour = htmlspecialchars($this->input->post('tour', true));
-			$data = [
-				'Id_paket_wisata' => $no,
-				'Nama_paket' => $nama,
-				'Nama_tempat_wisata' => $paket,
-				'Kegiatan_wisata' => $kegiatan,
-				'lama_tour' => $tour,
-			];
-			$save = $this->db->insert('paket_wisata', $data);
-			if ($save) {
-				redirect('admin/tabledatawisata');
-			}
-		}
-	}
-	public function updatedatawisata()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$no = htmlspecialchars($this->input->post('no', true));
-			$nama = htmlspecialchars($this->input->post('nama', true));
-			$paket = htmlspecialchars($this->input->post('paket', true));
-			$kegiatan = htmlspecialchars($this->input->post('kegiatan', true));
-			$tour = htmlspecialchars($this->input->post('tour', true));
-			$data = [
-				'Nama_paket' => $nama,
-				'Nama_tempat_wisata' => $paket,
-				'Kegiatan_wisata' => $kegiatan,
-				'lama_tour' => $tour,
-			];
-			$this->db->where('Id_paket_wisata', $no);
-			$this->db->update('paket_wisata', $data);
-			redirect('admin/tabledatawisata');
-		}
-	}
+    public function paket()
+    {
+        is_logged_in();
 
-	public function tabledatawisata()
-	{
-		if ($this->session->userdata('tipe') == 'Admin') {
-			$data = [
-				'Wisata' => $this->AdminModel->getAllPaketWisata(),
-			];
-			// var_dump($data);
-			$this->load->view('templates/header', $data);
-			$this->load->view('Admin/wisata/table');
-			$this->load->view('templates/footer');
-		} else {
-			$this->load->view('error404.php');
-		}
-	}
+        switch ($this->session->userdata('level')) {
+            case $this->pengguna->accessAdmin()->id:
+                switch ($this->uri->segment(3)) {
+                    case 'show':
+                        # code...
+                        break;
+                    case 'update':
+                        # code...
+                        break;
+                    case 'delete':
+                        # code...
+                        break;
+                    default:
+                        $data = [
+                            'base' => 'Paket',
+                            'title' => 'Table Paket Wisata',
+                            'heading' => 'Paket Wisata',
+                            'paket' => $this->paket->getData(),
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/paket/index');
+                        $this->load->view('templates/footer');
+                        break;
+                }
+                break;
+
+            default:
+                // $this->load->view('error404');
+                break;
+        }
+    }
+
+    public function wisata()
+    {
+        is_logged_in();
+
+        switch ($this->session->userdata('level')) {
+            case $this->pengguna->accessAdmin()->id:
+                switch ($this->uri->segment(3)) {
+                    case 'show':
+                        # code...
+                        break;
+                    case 'update':
+                        # code...
+                        break;
+                    case 'delete':
+                        # code...
+                        break;
+                    default:
+                        $data = [
+                            'base' => 'Wisata',
+                            'title' => 'Table Tempat Wisata',
+                            'heading' => 'Tempat Wisata',
+                            'wisata' => $this->wisata->getData(),
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/wisata/index');
+                        $this->load->view('templates/footer');
+                        break;
+                }
+                break;
+
+            default:
+                // $this->load->view('error404');
+                break;
+        }
+    }
+
+    public function kategori()
+    {
+        is_logged_in();
+
+        switch ($this->session->userdata('level')) {
+            case $this->pengguna->accessAdmin()->id:
+                switch ($this->uri->segment(3)) {
+                    case 'show':
+                        # code...
+                        break;
+                    case 'update':
+                        # code...
+                        break;
+                    case 'delete':
+                        # code...
+                        break;
+                    default:
+                        $data = [
+                            'base' => 'Kategori',
+                            'title' => 'Table Kategori Paket',
+                            'heading' => 'Kategori Paket',
+                            'kategori' => $this->kategori->getData(),
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/kategori/index');
+                        $this->load->view('templates/footer');
+                        break;
+                }
+                break;
+
+            default:
+                // $this->load->view('error404');
+                break;
+        }
+    }
+
+    public function transaksi()
+    {
+        is_logged_in();
+
+        switch ($this->session->userdata('level')) {
+            case $this->pengguna->accessAdmin()->id:
+                switch ($this->uri->segment(3)) {
+                    case 'show':
+                        # code...
+                        break;
+                    case 'update':
+                        # code...
+                        break;
+                    case 'delete':
+                        # code...
+                        break;
+                    default:
+                        $data = [
+                            'base' => 'Transaksi',
+                            'title' => 'Table Transaksi Pembayaran',
+                            'heading' => 'Transaksi Pembayaran',
+                            'transaksi' => $this->transaksi->getData(),
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/transaksi/index');
+                        $this->load->view('templates/footer');
+                        break;
+                }
+                break;
+
+            default:
+                // $this->load->view('error404');
+                break;
+        }
+    }
+
+    public function hubungi_kami()
+    {
+        is_logged_in();
+
+        switch ($this->session->userdata('level')) {
+            case $this->pengguna->accessAdmin()->id:
+                switch ($this->uri->segment(3)) {
+                    case 'show':
+                        # code...
+                        break;
+                    case 'update':
+                        # code...
+                        break;
+                    case 'delete':
+                        # code...
+                        break;
+                    default:
+                        $data = [
+                            'title' => 'Hubungi Kami',
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/hubungi_kami/index');
+                        $this->load->view('templates/footer');
+                        break;
+                }
+                break;
+
+            default:
+                // $this->load->view('error404');
+                break;
+        }
+    }
+    public function profil()
+    {
+        is_logged_in();
+
+        switch ($this->session->userdata('level')) {
+            case $this->pengguna->accessAdmin()->id:
+                switch ($this->uri->segment(3)) {
+                    case 'show':
+                        # code...
+                        break;
+                    case 'update':
+                        # code...
+                        break;
+                    case 'delete':
+                        # code...
+                        break;
+                    default:
+                        $data = [
+                            'title' => 'Profil',
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/profil/index');
+                        $this->load->view('templates/footer');
+                        break;
+                }
+                break;
+
+            default:
+                // $this->load->view('error404');
+                break;
+        }
+    }
+
+    public function pelanggan()
+    {
+        is_logged_in();
+
+        switch ($this->session->userdata('level')) {
+            case $this->pengguna->accessAdmin()->id:
+                switch ($this->uri->segment(3)) {
+                    case 'show':
+                        # code...
+                        break;
+                    case 'update':
+                        # code...
+                        break;
+                    case 'delete':
+                        # code...
+                        break;
+                    default:
+                        $data = [
+                            'title' => 'Table Pelanggan',
+                            'dataPelanggan' => $this->pengguna->getAllUser(),
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/pelanggan/index');
+                        $this->load->view('templates/footer');
+                        break;
+                }
+                break;
+
+            default:
+                // $this->load->view('error404');
+                break;
+        }
+    }
+
+    public function ubah_sandi()
+    {
+        is_logged_in();
+
+        switch ($this->session->userdata('level')) {
+            case $this->pengguna->accessAdmin()->id:
+                switch ($this->uri->segment(3)) {
+                    case 'show':
+                        # code...
+                        break;
+                    case 'update':
+                        # code...
+                        break;
+                    case 'delete':
+                        # code...
+                        break;
+                    default:
+                        $data = [
+                            'title' => 'Ubah Sandi',
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/ubah_sandi/index');
+                        $this->load->view('templates/footer');
+                        break;
+                }
+                break;
+
+            default:
+                // $this->load->view('error404');
+                break;
+        }
+    }
 }

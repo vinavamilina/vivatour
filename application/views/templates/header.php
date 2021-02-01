@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> <?= $this->session->userdata('nama_pengguna') ?>| Beranda</title>
+    <title>Viva Tour | <?= $title; ?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -40,7 +40,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
 
-                <li class="nav-item d-none d-sm-inline-block">
+                <!-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="IndexVina(1).html" class="nav-link">Beranda</a>
                 </li>
 
@@ -50,10 +50,10 @@
 
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="Hubungivin.html" class="nav-link">Hubungi</a>
-                </li>
+                </li> -->
 
                 <!-- SEARCH FORM -->
-                <form class="form-inline ml-3">
+                <!-- <form class="form-inline ml-3">
                     <div class="input-group input-group-sm">
                         <input class="form-control form-control-navbar" type="search" placeholder="Cari" aria-label="Cari">
                         <div class="input-group-append">
@@ -62,7 +62,7 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </form> -->
             </ul>
 
         </nav>
@@ -84,7 +84,7 @@
                         <img src="<?= base_url() ?>assets/adminlte/dist/IMG_20201018_125331.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Vina Vamilina</a>
+                        <a href="#" class="d-block"><?= ucfirst($this->session->userdata('name')); ?></a>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin') ?>" class="nav-link">
+                            <a href="<?= base_url('admin') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Beranda
@@ -103,7 +103,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/profilVin') ?>" . class="nav-link">
+                            <a href="<?= base_url('admin/profil') ?>" . class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Profil
@@ -112,7 +112,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Hubungivin') ?>" . class="nav-link">
+                            <a href="<?= base_url('admin/hubungi_kami') ?>" . class="nav-link">
                                 <i class="nav-icon fas fa-phone"></i>
                                 <p>
                                     Hubungi
@@ -121,7 +121,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/datapelanggan') ?>" class="nav-link">
+                            <a href="<?= base_url('admin/pelanggan') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
                                     Pelanggan
@@ -138,50 +138,50 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <i class="nav-item">
-                                    <a href="<?= base_url('Admin/datatempatwisata') ?>" class="nav-link">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('admin/wisata') ?>" class="nav-link <?= ($this->uri->segment(2) == 'wisata') ? 'active' : '' ?>">
                                         <i class="nav-icon fas fa-map-marker"></i>
                                         <p>Tempat Wisata</p>
                                     </a>
-                        </li>
-                        <i class="nav-item">
-                            <a href="<?= base_url('Admin/tabledatawisata') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-columns"></i>
-                                <p>Tabel Paket Wisata</p>
-                            </a>
-                            </li>
-                            <il class="nav-item">
-                                <a href="<?= base_url('Admin/datapaketpariwisata') ?>" class="nav-link">
-                                    <i class="nav-icon fas fa-gift"></i>
-                                    <p>Paket Pariwisata</p>
-                                </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url('Admin/Transaksi') ?>" class="nav-link">
-                                        <i class="nav-icon fas fa-credit-card"></i>
-                                        <p>Transaksi pembayaran</p>
+                                    <a href="<?= base_url('admin/paket') ?>" class="nav-link <?= ($this->uri->segment(2) == 'paket') ? 'active' : '' ?>">
+                                        <i class="nav-icon fas fa-columns"></i>
+                                        <p>Paket Wisata</p>
                                     </a>
                                 </li>
-                    </ul>
-                    </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('admin/kategori') ?>" class="nav-link <?= ($this->uri->segment(2) == 'kategori') ? 'active' : '' ?>">
+                                        <i class="nav-icon fas fa-gift"></i>
+                                        <p>Kategori Paket</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('admin/transaksi') ?>" class="nav-link <?= ($this->uri->segment(2) == 'transaksi') ? 'active' : '' ?>">
+                                        <i class="nav-icon fas fa-credit-card"></i>
+                                        <p>Transaksi Pembayaran</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                    <li class="nav-item">
-                        <a href="<?= base_url('Admin/ubahkatasandiVin') ?>" class="nav-link">
-                            <i class="nav-icon fas fa-lock"></i>
-                            <p>
-                                Ubah Kata Sandi
-                            </p>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('admin/ubah_sandi') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-lock"></i>
+                                <p>
+                                    Ubah Kata Sandi
+                                </p>
+                            </a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a href="<?= base_url('Logout') ?>" class="nav-link">
-                            <i class="nav-icon fas fa-power-off "></i>
-                            <p>
-                                Keluar
-                            </p>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('admin/logout') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-power-off "></i>
+                                <p>
+                                    Keluar
+                                </p>
+                            </a>
+                        </li>
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
