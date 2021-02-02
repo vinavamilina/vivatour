@@ -6,6 +6,7 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->idData = $this->uri->segment(4);
     }
 
     public function index()
@@ -98,17 +99,76 @@ class Admin extends CI_Controller
     {
         is_logged_in();
 
+        $this->form_validation->set_rules('nama', 'Nama Paket', 'required');
+        $this->form_validation->set_rules('kategori', 'Kategori Paket', 'required');
+        $this->form_validation->set_rules('wisata', 'Tujuan Wisata', 'required');
+        $this->form_validation->set_rules('durasi', 'Lama Tour', 'required');
+        $this->form_validation->set_rules('harga', 'Harga Paket', 'required');
+        $this->form_validation->set_rules('keterangan', 'Keterangan Paket', 'required');
+
+        $newData = [
+            'nama' => htmlspecialchars($this->input->post('nama', true)),
+            'paket_kategori_id' => $this->input->post('kategori', true),
+            'paket_wisata_id' => $this->input->post('wisata', true),
+            'durasi' => $this->input->post('durasi', true),
+            'harga' => $this->input->post('harga', true),
+            'keterangan' => $this->input->post('keterangan', true),
+        ];
+
         switch ($this->session->userdata('level')) {
             case $this->pengguna->accessAdmin()->id:
                 switch ($this->uri->segment(3)) {
-                    case 'show':
-                        # code...
+                    case 'create':
+                        if ($this->form_validation->run() == FALSE) {
+                            $data = [
+                                'base' => 'Paket',
+                                'title' => 'Tambah Paket Wisata',
+                                'heading' => 'Tambah Paket',
+                                'kategori' => $this->kategori->getData(),
+                                'wisata' => $this->wisata->getData(),
+                            ];
+                            $this->load->view('templates/header', $data);
+                            $this->load->view('pages/paket/create');
+                            $this->load->view('templates/footer');
+                        } else {
+                            $this->paket->insertData($newData);
+                            redirect('admin/paket/');
+                        }
                         break;
-                    case 'update':
-                        # code...
+                    case 'show':
+                        $data = [
+                            'base' => 'Paket',
+                            'title' => 'Info Paket Wisata',
+                            'heading' => 'Info Paket',
+                            'paket' => $this->paket->getData($this->idData),
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/paket/show');
+                        $this->load->view('templates/footer');
+                        break;
+                    case 'edit':
+                        if ($this->form_validation->run() == FALSE) {
+                            $data = [
+                                'base' => 'Paket',
+                                'title' => 'Edit Paket Wisata',
+                                'heading' => 'Edit Paket',
+                                'paket' => $this->paket->getData($this->idData),
+                                'kategori' => $this->kategori->getData(),
+                                'wisata' => $this->wisata->getData(),
+                            ];
+                            $this->load->view('templates/header', $data);
+                            $this->load->view('pages/paket/edit');
+                            $this->load->view('templates/footer');
+                        } else {
+                            $this->paket->updateData($this->idData, $newData);
+                            redirect('admin/paket/');
+                        }
                         break;
                     case 'delete':
-                        # code...
+                        $delete = $this->paket->deleteData($this->idData);
+                        if ($delete) {
+                            redirect('admin/paket');
+                        }
                         break;
                     default:
                         $data = [
@@ -138,9 +198,20 @@ class Admin extends CI_Controller
             case $this->pengguna->accessAdmin()->id:
                 switch ($this->uri->segment(3)) {
                     case 'show':
-                        # code...
+                        $data = [
+                            'base' => 'Wisata',
+                            'title' => 'Table Tempat Wisata',
+                            'heading' => 'Tempat Wisata',
+                            'wisata' => $this->wisata->getData($this->idData),
+                        ];
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('pages/wisata/show');
+                        $this->load->view('templates/footer');
                         break;
                     case 'update':
+                        # code...
+                        break;
+                    case 'edit':
                         # code...
                         break;
                     case 'delete':

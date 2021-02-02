@@ -38,19 +38,19 @@
                                     <td><?= $i++ ?></td>
                                     <td><?= $data->nama ?></td>
                                     <td>
-                                        <a href="<?= base_url('admin/detaildatawisata/' . $data->id) ?>">
+                                        <a href="<?= base_url('admin/wisata/show/' . $data->id) ?>">
                                             <button type="button" class="btn btn-block btn-success btn-xs">
                                                 Detail
                                             </button>
                                         </a>
 
-                                        <a href="<?= base_url('admin/editdatawisata/' . $data->id) ?>">
+                                        <a href="<?= base_url('admin/wisata/edit/' . $data->id) ?>">
                                             <button type="button" class="btn btn-block btn-primary btn-xs">
                                                 Ubah
                                             </button>
                                         </a>
 
-                                        <a href="<?= base_url('admin/hapusPaket/' . $data->id) ?>">
+                                        <a href="<?= base_url('admin/wisata/delete/' . $data->id) ?>">
                                             <button type="button" class="btn btn-block btn-danger btn-xs">
                                                 Hapus
                                             </button>

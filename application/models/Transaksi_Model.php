@@ -4,12 +4,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Transaksi_Model extends CI_Model
 {
-    function getData($id = null)
+    public function getData($id = null)
     {
+        $this->db->select('transaksi.*, paket.nama as paket, pengguna.nama as nama, paket.harga as harga');
+        $this->db->from('transaksi');
+        $this->db->join('paket', 'paket.id = transaksi.paket_id');
+        $this->db->join('pengguna', 'pengguna.id = transaksi.pengguna_id');
         if ($id == null) {
-            return $this->db->get('transaksi')->result();
+            return $this->db->get()->result();
         } else {
-            return $this->db->get_where('transaksi', array('id' => $id))->row();
+            $this->db->where('paket_wisata.id = ', $id);
+            return $this->db->get()->row();
         }
     }
 

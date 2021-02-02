@@ -8,7 +8,7 @@
         </div>
         <div class="row col-md-2">
             <div class="card">
-                <a href="<?= base_url('admin/adddatawisata') ?>">
+                <a href="<?= base_url('admin/paket/create') ?>" class="btn btn-md btn-info">
                     <i class="fa fa-plus"></i> &nbsp;Tambah <?= $base; ?>
                 </a>
             </div>
@@ -28,7 +28,7 @@
                                 <th>Nama</th>
                                 <th>Kategori</th>
                                 <th>Perjalanan</th>
-                                <th>Durasi</th>
+                                <th>Lama Tour</th>
                                 <th>Harga</th>
                                 <th width="10%">Aksi</th>
                             </tr>
@@ -46,19 +46,19 @@
                                     <td><?= $data->durasi ?> Hari</td>
                                     <td>Rp. <?= number_format($data->harga, 0, ',', '.'); ?> / org</td>
                                     <td>
-                                        <a href="<?= base_url('admin/detaildatawisata/' . $data->id) ?>">
+                                        <a href="<?= base_url('admin/paket/show/' . $data->id) ?>">
                                             <button type="button" class="btn btn-block btn-success btn-xs">
                                                 Detail
                                             </button>
                                         </a>
 
-                                        <a href="<?= base_url('admin/editdatawisata/' . $data->id) ?>">
+                                        <a href="<?= base_url('admin/paket/edit/' . $data->id) ?>">
                                             <button type="button" class="btn btn-block btn-primary btn-xs">
                                                 Ubah
                                             </button>
                                         </a>
 
-                                        <a href="<?= base_url('admin/hapusPaket/' . $data->id) ?>">
+                                        <a href="<?= base_url('admin/paket/delete/' . $data->id) ?>">
                                             <button type="button" class="btn btn-block btn-danger btn-xs">
                                                 Hapus
                                             </button>
@@ -73,7 +73,7 @@
                                 <th>Nama</th>
                                 <th>Kategori</th>
                                 <th>Perjalanan</th>
-                                <th>Durasi</th>
+                                <th>Lama Tour</th>
                                 <th>Harga</th>
                                 <th>Aksi</th>
                             </tr>

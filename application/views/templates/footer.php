@@ -6,7 +6,7 @@
 </div>
 <!-- /.content-wrapper -->
 <footer class="main-footer">
-    <strong>Copyright &copy; PBOSIF E 2020 <a href="http://adminlte.io">Vina Vamilina</a>.</strong>
+    <strong>Copyright &copy; PBOSIF E <?= date('Y'); ?> <a href="#">Vina Vamilina</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.0.5

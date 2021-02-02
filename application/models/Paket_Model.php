@@ -38,4 +38,12 @@ class Paket_Model extends CI_Model
     {
         return $this->db->insert('paket', $data);
     }
+
+    public function updateData($id = null, $data = null)
+    {
+        if ($id != null && $data != null) {
+            $this->db->where('id', $id);
+            return $this->db->update('paket', $data);
+        }
+    }
 }

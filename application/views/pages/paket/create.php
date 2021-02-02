@@ -6,40 +6,55 @@
             <div class="card">
             </div>
         </div>
-
         <div class="row">
             <div class="card col-md-12">
                 <div class="card-header">
-                    <h3 class="card-title">Tambah Paket Pariwisata</h3>
+                    <h3 class="card-title"><?= $heading; ?></h3>
                 </div>
+
+                <?= validation_errors(); ?>
+
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form method="POST" action="<?= base_url('admin/createdatawisata') ?>" role="form">
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="no">Id Paket Wisata</label>
-                                <input type="text" name="no" class="form-control" id="no" placeholder="Lorem">
-                            </div>
-                            <div class="form-group">
-                                <label for="nama">Nama Tempat Wisata</label>
-                                <input type="text" name="nama" class="form-control" id="nama" placeholder="Lorem">
-                            </div>
-                            <div class="form-group">
-                                <label for="paket">Nama Paket</label>
-                                <input type="text" name="paket" class="form-control" id="paket" placeholder="Lorem">
-                            </div>
-                            <div class="form-group">
-                                <label>Kegiatan Wisata</label>
-                                <textarea name="kegiatan" name="kegitan" class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Lama Tour</label>
-                                <textarea name="tour" name="tour" class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                            </div>
+                    <?= form_open('admin/paket/create'); ?>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="nama">Nama Paket</label>
+                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Lorem" value="<?= set_value('nama'); ?>">
                         </div>
-                        <div class="box-footer">
-                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                        <div class="form-group">
+                            <label for="kategori">Kategori Paket</label>
+                            <select class="custom-select" id="kategori" name="kategori">
+                                <?php foreach ($kategori as $value) : ?>
+                                    <option value="<?= $value->id ?>"><?= $value->nama ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
+                        <div class="form-group">
+                            <label for="wisata">Tujuan Wisata</label>
+                            <select class="custom-select" id="wisata" name="wisata">
+                                <?php foreach ($wisata as $value) : ?>
+                                    <option value="<?= $value->id ?>"><?= $value->nama ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="durasi">Lama Tour</label>
+                            <input type="number" name="durasi" class="form-control" id="durasi" placeholder="Lorem" value="<?= set_value('durasi'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Harga Paket</label>
+                            <input type="number" name="harga" class="form-control" id="harga" placeholder="Lorem" value="<?= set_value('harga'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan">Keterangan Paket</label>
+                            <textarea id="keterangan" name="keterangan" class="form-control" rows="5" placeholder="Enter ..."><?= set_value('keterangan'); ?></textarea>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a href="<?= base_url('admin/paket/') ?>" type="submit" name="submit" class="btn btn-primary float-left">Back</a>
+                        <button type="submit" name="submit" class="btn btn-primary float-right">Submit</button>
+                    </div>
                     </form>
                 </div>
                 <!-- /.card-body -->

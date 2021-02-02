@@ -24,33 +24,40 @@
                     <table id="idPaketwisata" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th width="2%">No.</th>
-                                <th>Nama</th>
+                                <th>Kode Transaksi</th>
+                                <th>Nama Pelanggan</th>
+                                <th>Paket Wisata</th>
+                                <th>Jumlah</th>
+                                <th>Total Harga</th>
+                                <th>Status</th>
                                 <th width="10%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $i = 1;
                             foreach ($transaksi as $data) :
                             ?>
                                 <tr>
-                                    <td><?= $i++ ?></td>
+                                    <td><?= $data->id ?></td>
                                     <td><?= $data->nama ?></td>
+                                    <td><?= $data->paket ?></td>
+                                    <td class="text-center"><?= $data->jumlah ?></td>
+                                    <td>Rp. <?= number_format($data->harga * $data->jumlah, 0, ',', '.'); ?></td>
+                                    <td class="text-center"><?= ($data->status == 1) ? 'Lunas' : 'Belum Lunas' ?></td>
                                     <td>
-                                        <a href="<?= base_url('admin/detaildatawisata/' . $data->id) ?>">
+                                        <a href="<?= base_url('admin/transaksi/show/' . $data->id) ?>">
                                             <button type="button" class="btn btn-block btn-success btn-xs">
                                                 Detail
                                             </button>
                                         </a>
 
-                                        <a href="<?= base_url('admin/editdatawisata/' . $data->id) ?>">
+                                        <a href="<?= base_url('admin/transaksi/edit/' . $data->id) ?>">
                                             <button type="button" class="btn btn-block btn-primary btn-xs">
                                                 Ubah
                                             </button>
                                         </a>
 
-                                        <a href="<?= base_url('admin/hapusPaket/' . $data->id) ?>">
+                                        <a href="<?= base_url('admin/transaksi/delete/' . $data->id) ?>">
                                             <button type="button" class="btn btn-block btn-danger btn-xs">
                                                 Hapus
                                             </button>
@@ -61,9 +68,13 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th width="2%">No.</th>
-                                <th>Nama</th>
-                                <th>Aksi</th>
+                                <th>Kode Transaksi</th>
+                                <th>Nama Pelanggan</th>
+                                <th>Paket Wisata</th>
+                                <th>Jumlah</th>
+                                <th>Total Harga</th>
+                                <th>Status</th>
+                                <th width="10%">Aksi</th>
                             </tr>
                         </tfoot>
                     </table>
