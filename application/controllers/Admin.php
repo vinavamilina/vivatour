@@ -108,13 +108,13 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('keterangan', 'Keterangan Paket', 'required');
 
         $newData = [
-            'nama' => htmlspecialchars($this->input->post('nama', true)),
+            'nama' => htmlspecialchars(ucfirst($this->input->post('nama', true))),
             'paket_kategori_id' => $this->input->post('kategori', true),
             'paket_wisata_id' => $this->input->post('wisata', true),
             'hari' => $this->input->post('hari', true),
             'malam' => $this->input->post('malam', true),
             'harga' => $this->input->post('harga', true),
-            'keterangan' => $this->input->post('keterangan', true),
+            'keterangan' => ucfirst($this->input->post('keterangan', true)),
         ];
 
         switch ($this->session->userdata('level')) {
