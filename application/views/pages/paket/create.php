@@ -39,8 +39,29 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="durasi">Lama Tour</label>
-                            <input type="number" name="durasi" class="form-control" id="durasi" placeholder="Lorem" value="<?= set_value('durasi'); ?>">
+                            <label for="paket">Lama Tour</label>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <input type="number" name="hari" class="form-control" id="hari" placeholder="Lorem" value="<?= set_value('hari'); ?>">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Hari</span>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <input type="number" name="malam" class="form-control" id="malam" placeholder="Lorem" value="<?= set_value('malam'); ?>">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Malam</span>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="harga">Harga Paket</label>

@@ -102,7 +102,8 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama Paket', 'required');
         $this->form_validation->set_rules('kategori', 'Kategori Paket', 'required');
         $this->form_validation->set_rules('wisata', 'Tujuan Wisata', 'required');
-        $this->form_validation->set_rules('durasi', 'Lama Tour', 'required');
+        $this->form_validation->set_rules('hari', 'Hari', 'required');
+        $this->form_validation->set_rules('malam', 'Malam', 'required');
         $this->form_validation->set_rules('harga', 'Harga Paket', 'required');
         $this->form_validation->set_rules('keterangan', 'Keterangan Paket', 'required');
 
@@ -110,7 +111,8 @@ class Admin extends CI_Controller
             'nama' => htmlspecialchars($this->input->post('nama', true)),
             'paket_kategori_id' => $this->input->post('kategori', true),
             'paket_wisata_id' => $this->input->post('wisata', true),
-            'durasi' => $this->input->post('durasi', true),
+            'hari' => $this->input->post('hari', true),
+            'malam' => $this->input->post('malam', true),
             'harga' => $this->input->post('harga', true),
             'keterangan' => $this->input->post('keterangan', true),
         ];
@@ -165,10 +167,8 @@ class Admin extends CI_Controller
                         }
                         break;
                     case 'delete':
-                        $delete = $this->paket->deleteData($this->idData);
-                        if ($delete) {
-                            redirect('admin/paket');
-                        }
+                        $this->paket->deleteData($this->idData);
+                        redirect('admin/paket/');
                         break;
                     default:
                         $data = [

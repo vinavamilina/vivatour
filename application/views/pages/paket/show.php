@@ -29,11 +29,32 @@
                             </div>
                             <div class="form-group">
                                 <label for="paket">Lama Tour</label>
-                                <input type="text" name="durasi" class="form-control" id="durasi" placeholder="Lorem" value="<?= $paket->durasi; ?>" disabled>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-group">
+                                            <input type="number" name="hari" class="form-control" id="hari" placeholder="Lorem" value="<?= $paket->hari ?>" disabled>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Hari</span>
+                                            </div>
+                                        </div>
+                                        <!-- /input-group -->
+                                    </div>
+                                    <!-- /.col-lg-6 -->
+                                    <div class="col-lg-6">
+                                        <div class="input-group">
+                                            <input type="number" name="malam" class="form-control" id="malam" placeholder="Lorem" value="<?= $paket->malam ?>" disabled>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Malam</span>
+                                            </div>
+                                        </div>
+                                        <!-- /input-group -->
+                                    </div>
+                                    <!-- /.col-lg-6 -->
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Keterangan Paket</label>
-                                <textarea name="kegiatan" name="kegitan" class="form-control" rows="3" placeholder="Enter ..." disabled><?= $paket->keterangan; ?></textarea>
+                                <textarea name="kegiatan" name="kegitan" class="form-control" rows="5" placeholder="Enter ..." disabled><?= $paket->keterangan; ?></textarea>
                             </div>
                         </div>
                         <div class="box-footer">

@@ -10,7 +10,7 @@ class Paket_Model extends CI_Model
         return $this->db->count_all_results('paket');
     }
 
-    function getData($id = null)
+    public function getData($id = null)
     {
         $this->db->select('paket.*, paket_kategori.nama as kategori, paket_wisata.nama as wisata');
         $this->db->from('paket');
@@ -24,7 +24,7 @@ class Paket_Model extends CI_Model
         }
     }
 
-    function deleteData($id = null)
+    public function deleteData($id = null)
     {
         if ($id != null) {
             $query = $this->getData($id);
@@ -34,7 +34,7 @@ class Paket_Model extends CI_Model
         }
     }
 
-    function insertData($data)
+    public function insertData($data)
     {
         return $this->db->insert('paket', $data);
     }

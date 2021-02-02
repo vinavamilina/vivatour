@@ -43,7 +43,7 @@
                                     <td><?= $data->nama ?></td>
                                     <td><?= $data->kategori ?></td>
                                     <td><?= $data->wisata ?></td>
-                                    <td><?= $data->durasi ?> Hari</td>
+                                    <td><?= $data->hari ?> Hari <?= $data->malam ?> Malam</td>
                                     <td>Rp. <?= number_format($data->harga, 0, ',', '.'); ?> / org</td>
                                     <td>
                                         <a href="<?= base_url('admin/paket/show/' . $data->id) ?>">

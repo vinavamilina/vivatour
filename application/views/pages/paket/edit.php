@@ -40,11 +40,37 @@
                         </div>
                         <div class="form-group">
                             <label for="paket">Lama Tour</label>
-                            <input type="number" name="durasi" class="form-control" id="durasi" placeholder="Lorem" value="<?= $paket->durasi; ?>">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <input type="number" name="hari" class="form-control" id="hari" placeholder="Lorem" value="<?= $paket->hari; ?>">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Hari</span>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <input type="number" name="malam" class="form-control" id="malam" placeholder="Lorem" value="<?= $paket->malam; ?>">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Malam</span>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="harga">Harga Paket</label>
-                            <input type="number" name="harga" class="form-control" id="harga" placeholder="Lorem" value="<?= $paket->harga; ?>">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp. </span>
+                                </div>
+                                <input type="number" name="harga" class="form-control" id="harga" placeholder="Lorem" value="<?= $paket->harga; ?>">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan Paket</label>
